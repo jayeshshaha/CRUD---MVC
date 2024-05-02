@@ -1,0 +1,62 @@
+@model List<StudentModel>;
+<h1>Student List: (@Model.Count())</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+        <tr>
+            <td>@i.Id</td>
+            <td>@i.Name</td>
+            <td>@i.Age</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                <a asp-action="Delete" asp-route-id="@i.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Student" asp-action="AddStudent">Add Student</a>
+
+---------------------------------------------------------------------------------------------------------
+
+@model StudentModel;
+<h1>Add Student</h1>
+
+<form  method="post">
+    <input type="number" asp-for="Id">
+    <input type="text" asp-for="Name">
+    <input type="number" asp-for="Age">
+    <button type="submit">Submit</button>
+</form>
+
+<a asp-controller="Student" asp-action="ListStudents">Student List</a>
+
+---------------------------------------------------------------------------------------------------------
+
+@model StudentModel;
+<h1>Edit Student</h1>
+
+<form  method="post">
+    <input type="number" asp-for="Id">
+    <input type="text" asp-for="Name">
+    <input type="number" asp-for="Age">
+    <button type="submit">Save</button>
+</form>
+
+---------------------------------------------------------------------------------------------------------
+
+@model StudentModel;
+<h1>Are you sure want to remove @Model.Name from Database ?</h1>
+<form  method="post" asp-action="DeleteConfirmed" asp-route-id="@Model.Id">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
